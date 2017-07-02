@@ -196,42 +196,44 @@
             $label_name = $_POST[keyword2_2];
             $album_name = $_POST[keyword2_3];
             
-            
+            if(strlen($artist_name)==0 && strlen($label_name)==0&&strlen($album_name)==0){
+            }
+            else{
             if(strlen($artist_name)>0){
                 if(strlen($label_name)>0){
                     if(strlen($album_name)>0){
-                    $sql = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.artist_name LIKE '%$artist_name%' AND artist.record_label LIKE '%$label_name%' AND album.album_name LIKE '%$album_name%'";    
+                    $sql3 = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.artist_name LIKE '%$artist_name%' AND artist.record_label LIKE '%$label_name%' AND album.album_name LIKE '%$album_name%'";    
                     }
                     else{
-                    $sql = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.artist_name LIKE '%$artist_name%' AND artist.record_label LIKE '%$label_name%'";    
+                    $sql3 = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.artist_name LIKE '%$artist_name%' AND artist.record_label LIKE '%$label_name%'";    
                     }        
                 }
                 else if(strlen($album_name)>0){
-                $sql = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.artist_name LIKE '%$artist_name%' AND album.album_name LIKE '%$album_name%'";    
+                $sql3 = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.artist_name LIKE '%$artist_name%' AND album.album_name LIKE '%$album_name%'";    
                 }
                 else{
-                $sql = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.artist_name LIKE '%$artist_name%'";    
+                $sql3 = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.artist_name LIKE '%$artist_name%'";    
                 }            
             }
             else if(strlen($label_name)>0){
              if(strlen($album_name)>0){
-                $sql = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.record_label LIKE '%$label_name%' AND album.album_name LIKE '%$album_name%'";    
+                $sql3 = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.record_label LIKE '%$label_name%' AND album.album_name LIKE '%$album_name%'";    
                 }
                 else{
                 $sql = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE artist.record_label LIKE '%$label_name%'";    
                 }    
             }
             else if(strlen($album_name)>0){
-                $sql = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE album.album_name LIKE '%$album_name%'";
+                $sql3 = "SELECT * FROM artist INNER JOIN album ON artist.artist_num = album.artist_num WHERE album.album_name LIKE '%$album_name%'";
             }
-            $result =  mysqli_query($conn, $sql);
+            $result3 =  mysqli_query($conn, $sql3);
             
-                if((strlen($artist_name)>0 ||strlen($label_name)>0||strlen($album_name)>0)&& $result==NULL){
+                if((strlen($artist_name)>0 ||strlen($label_name)>0||strlen($album_name)>0)&& $result3==NULL){
                     echo "No result exists";
                 }
                 else{
                     
-                    while($row = mysqli_fetch_assoc($result))
+                    while($row = mysqli_fetch_assoc($result3))
                     {
                         
                         echo "<td align='center'>".$row['artist_name']."</td>";
@@ -245,6 +247,7 @@
                         
                         echo "</tr>";
                     }
+                }
                 }
                 ?>
                 </tbody>
