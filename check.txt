@@ -1,0 +1,181 @@
+http://blog.daum.net/_blog/ArticleCateList.do?blogid=0tBgP&CATEGORYID=6&dispkind=B2201&navi=&totalcnt=1
+// php search
+
+http://blog.daum.net/_blog/BlogTypeView.do?blogid=0tBgP&articleno=9&categoryId=2&regdt=20161108120432
+//mysql, php, html
+
+SELECT user.id,title,name FROM topic LEFT JOIN user ON topic.author=user.id
+
+CREATE TABLE `members` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `author` varchar(30) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `members` (
+`email` varchar(30) NOT NULL ,
+  `nickname` varchar(20) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `mem_rank` char(3) NOT NULL,
+  `pref_genre` varchar(30),
+  PRIMARY KEY (email,nickname)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `song_review` (
+`s_review_num` int(11) NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(20) NOT NULL,
+`song_name` varchar(30) NOT NULL,
+`artist_num` int(11) NOT NULL,
+`artist_name` varchar(20) NOT NULL,
+`rank` int(2) NOT NULL,
+  `contents` text ,
+  `like` int(10) ,
+  `dislike` int(10) ,
+  PRIMARY KEY (s_review_num)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `album_review` (
+`a_review_num` int(11) NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(20) NOT NULL,
+`album_name` varchar(30) NOT NULL,
+`artist_num` int(11) NOT NULL,
+`artist_name` varchar(20) NOT NULL,
+`rank` int(2) NOT NULL,
+  `contents` text ,
+  `like` int(10) ,
+  `dislike` int(10) ,
+PRIMARY KEY (a_review_num)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `artist` (
+`artist_num` int(11) NOT NULL AUTO_INCREMENT,
+`artist_name` varchar(20) NOT NULL,
+`nationality` varchar(30) ,
+  `debut_year` int(5) ,
+  `record_label` varchar(30) ,
+ PRIMARY KEY (artist_num,artist_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `album` (
+`artist_num` int(11) NOT NULL ,
+`artist_name` varchar(20) NOT NULL,
+`album_name` varchar(30) ,
+  `release_year` int(5) ,
+  `rank` int(2) ,
+`album_genre` varchar(30) ,
+  PRIMARY KEY (artist_num,album_name),
+    FOREIGN KEY (artist_num,artist_name)
+        REFERENCES artist(artist_num,artist_name)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `song` (
+`artist_num` int(11) NOT NULL ,
+`artist_name` varchar(20) NOT NULL,
+`song_name` varchar(30) NOT NULL,
+`album_name` varchar(30) NOT NULL,
+`rank` int(2) ,
+`song_genre` varchar(30) ,
+  PRIMARY KEY (artist_num,song_name,album_name),
+    FOREIGN KEY (artist_num,artist_name)
+        REFERENCES artist(artist_num,artist_name)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `record_label` (
+`label_num` int(11) NOT NULL AUTO_INCREMENT,
+  `record_label` varchar(30) ,
+  PRIMARY KEY (label_num)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `genre` (
+`genre_num` int(11) NOT NULL AUTO_INCREMENT,
+  `genre_name` varchar(30) ,
+  PRIMARY KEY (genre_num)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO artist (artist_name, nationality, debut_year, record_label)
+VALUES ('Ed Sheeran','British',2010,'Warner Music');
+INSERT INTO artist (artist_name, nationality, debut_year, record_label)
+VALUES ('Kehlani','American',2015,'Warner Music');
+INSERT INTO artist (artist_name, nationality, debut_year, record_label)
+VALUES ('Pharrell Williams','American',2000,'Sony Music');
+INSERT INTO artist (artist_name, nationality, debut_year, record_label)
+VALUES ('Zedd','German',2011,'Universal Music');
+INSERT INTO artist (artist_name, nationality, debut_year, record_label)
+VALUES ('DEAN','Korean',2015,'Universal Music');
+
+
+INSERT INTO record_label (record_label)
+VALUES ('Warner Music');
+INSERT INTO record_label (record_label)
+VALUES ('Sony Music');
+INSERT INTO record_label (record_label)
+VALUES ('Universal Music');
+
+
+INSERT INTO genre (genre_name)
+VALUES ('Pop');
+INSERT INTO genre (genre_name)
+VALUES ('Electronica');
+INSERT INTO genre (genre_name)
+VALUES ('R&B');
+INSERT INTO genre (genre_name)
+VALUES ('Soul');
+INSERT INTO genre (genre_name)
+VALUES ('Acoustic');
+INSERT INTO genre (genre_name)
+VALUES ('Country');
+INSERT INTO genre (genre_name)
+VALUES ('HipHop');
+
+INSERT INTO album (artist_num,artist_name,album_name,release_year,album_genre)
+VALUES (1,'Ed Sheeran','÷',2017,'Pop');
+INSERT INTO album (artist_num,artist_name,album_name,release_year,album_genre)
+VALUES (1,'Ed Sheeran','+',2010,'Acoustic');
+INSERT INTO album (artist_num,artist_name,album_name,release_year,album_genre)
+VALUES (2,'Kehlani','SweetSexySavage',2017,'R&B');
+INSERT INTO album (artist_num,artist_name,album_name,release_year,album_genre)
+VALUES (3,'Pharrell Williams','GIRL',2014,'Pop');
+INSERT INTO album (artist_num,artist_name,album_name,release_year,album_genre)
+VALUES (4,'Zedd','Clarity',2012,'Electronica');
+INSERT INTO album (artist_num,artist_name,album_name,release_year,album_genre)
+VALUES (5,'DEAN','Sorry',2015,'R&B');
+
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (5,'DEAN','I am Not Sorry','Sorry',0,'R&B');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (1,'Ed Sheeran','Castle On The Hill','÷',0,'Country');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (1,'Ed Sheeran','What Do I Know','÷',0,'Acoustic');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (1,'Ed Sheeran','Barcelonal','÷',0,'Acoustic');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (1,'Ed Sheeran','Shape Of You','÷',0,'Pop');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (2,'Kehlani','Personal','SweetSexySavage',0,'R&B');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (2,'Kehlani','UnderCover','SweetSexySavage',0,'R&B');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (2,'Kehlani','In My Feelings','SweetSexySavage',0,'Soul');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (3,'Pharrell Williams','Marilyn Monroe','GIRL',0,'Pop');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (3,'Pharrell Williams','Hunter','GIRL',0,'Pop');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (3,'Pharrell Williams','Happy','GIRL',0,'Pop');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (3,'Pharrell Williams','Come Get It Bae','GIRL',0,'Pop');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (4,'Zedd','Spectrum','Clarity',0,'Electronica');
+INSERT INTO song (artist_num,artist_name,song_name,album_name,rank,song_genre)
+VALUES (4,'Zedd','Clarity','Clarity',0,'Electronica');
+
+http://sexy.pe.kr/tc/95
+//cookie

@@ -1,0 +1,30 @@
+ header {
+      border-bottom:1px solid gray;
+      padding: 20px;
+    }
+    nav {
+      border-right:1px solid gray;
+      
+      height:600px;
+      float:left;
+    }
+    #left {
+      float:left;
+      padding:0;
+      width:150px;
+    }
+    #right {
+      border-left:1px solid gray;
+      float:right;
+      width:200px;
+    }
+    article {
+      float:left;
+      width:600px;
+      padding:0;
+    }
+    
+    #control{
+      float:right;
+    }
+    
